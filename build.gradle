@@ -1,0 +1,14 @@
+group 'mx.com.jorgwel'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.3'
+}

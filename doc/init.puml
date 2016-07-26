@@ -1,0 +1,70 @@
+@startuml
+
+	title Initial relationships
+
+	state A
+	state B
+	state C
+	state D
+	state E
+	state F
+	state G
+	state H
+	state K
+	state L
+
+	A -right-> B
+	A -down-> G
+	A -down-> E
+
+	B -right-> F
+	B -down-> C
+	
+	C --> B
+	C -down-> D
+	
+	D -down-> H
+	D -down-> K
+
+	E --> F
+
+
+	F --> B
+	F --> E
+
+	G --> A
+	G --> F
+	G -right-> C
+	G -left-> H
+
+	H --> G
+	H -up-> H
+
+	H -left-> L : 1 .. *
+
+ legend
+ |Relationships |
+|A --> B|
+|A --> G|
+|A --> E|
+|B --> F|
+|B --> C|
+|-------|
+|C --> B|
+|C --> D|
+|-------|
+|D --> H|
+|-------|
+|E --> F|
+|-------|
+|F --> B|
+|F --> E|
+|-------|
+|G --> A|
+|G --> F|
+|G --> C|
+|G --> H|
+|-------|
+|H --> G|
+ endlegend	
+@enduml

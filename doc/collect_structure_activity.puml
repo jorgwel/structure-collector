@@ -1,0 +1,12 @@
+@startuml
+
+	group User wants to collect the structure of dependencies for a class, starting with <b>targetClazz: Class</b>
+	      Controller -> StructureCollector : ClassStack stack = collect(targetClazz);
+          Controller -> StructureSaver : saveStructure(stack, humanIdentificator);
+          StructureSaver -> ClassStack : stack.validateStructure()
+          StructureSaver -> StructureSaver : save(stack, humanIdentificator)
+          StructureSaver --> Controller
+	end
+
+
+@enduml

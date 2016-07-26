@@ -1,0 +1,8 @@
+@startuml
+
+
+	:def stack = findEveryClassInStructure(targetClazz);
+    :saveStructureToDatabase(stack);
+
+
+@enduml
