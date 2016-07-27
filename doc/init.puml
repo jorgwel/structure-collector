@@ -10,6 +10,7 @@
 	state F
 	state G
 	state H
+	state J
 	state K
 	state L
 
@@ -25,6 +26,8 @@
 	
 	D -down-> H
 	D -down-> K
+
+	K -left-> J
 
 	E --> F
 

@@ -6,4 +6,5 @@ class K {
     Boolean bk
     BufferedInputStream bisk
 
+    J j
 }

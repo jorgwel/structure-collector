@@ -6,7 +6,7 @@ import spock.lang.Specification
 class Test extends Specification {
 
     private final static String BUILD_FOLDER = "src/test/resources/build"
-    def newInstance
+    StructureCollector newInstance
     def setup(){
         println "Setting up"
         newInstance = new StructureCollector()
@@ -35,13 +35,17 @@ class Test extends Specification {
 
     def "If the full class name of a class without dependencies is sent, the structure contains only that class"(){
 
-        def noDependenciesClassFullName = "exampleclasses.consonants.K"
+        given:
+            def noDependenciesClassFullName = "exampleclasses.consonants.J"
 
         when:
             Stack stack = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
+
+        and:
             def sizeBeforePop = stack.size()
             Object classContainedInStack = stack.pop()
 
+        and:
             Class<?> loadedClass = loadClass(noDependenciesClassFullName)
 
         then:
@@ -50,22 +54,22 @@ class Test extends Specification {
             classContainedInStack.getName() == loadedClass.getName()
     }
 
-//    def "If the full class name of a class with only 1 dependency is sent, the structure contains 2 classes, the sent one and the dependency"(){
-//
-//        def noDependenciesClassFullName = "exampleclasses.consonants.K"
-//
-//        when:
-//            Stack stack = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
-//            def sizeBeforePop = stack.size()
-//            Object classContainedInStack = stack.pop()
-//
-//            Class<?> loadedClass = loadClass(noDependenciesClassFullName)
-//
-//        then:
-//            sizeBeforePop == 1
-//            stack.size() == 0
-//            classContainedInStack.getName() == loadedClass.getName()
-//    }
+    def "If the full class name of a class with only 1 dependency is sent, the structure contains 2 classes, the sent one and the dependency"(){
+
+        given:
+            def oneDependencyClassFullName = "exampleclasses.consonants.K"
+
+        when:
+            Stack<Class> stack = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+
+        then:
+            Class k = stack.pop()
+            k.canonicalName == "exampleclasses.consonants.K"
+            Class j = stack.pop()
+            j.canonicalName == "exampleclasses.consonants.J"
+            stack.size() == 0
+
+    }
 
     private Class<?> loadClass(String noDependenciesClassFullName) {
         URLClassLoader urlCl = getClassLoader(BUILD_FOLDER)
