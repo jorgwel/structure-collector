@@ -39,19 +39,19 @@ class Test extends Specification {
             def noDependenciesClassFullName = "exampleclasses.consonants.J"
 
         when:
-            Stack stack = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
+            LinkedList list = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
 
         and:
-            def sizeBeforePop = stack.size()
-            Object classContainedInStack = stack.pop()
+            def sizeBeforeRemoval = list.size()
+            Object classContainedInList = list.removeFirst()
 
         and:
             Class<?> loadedClass = loadClass(noDependenciesClassFullName)
 
         then:
-            sizeBeforePop == 1
-            stack.size() == 0
-            classContainedInStack.getName() == loadedClass.getName()
+            sizeBeforeRemoval == 1
+            list.size() == 0
+            classContainedInList.getName() == loadedClass.getName()
     }
 
     def "If the full class name of a class with only 1 dependency is sent, the structure contains 2 classes, the sent one and the dependency"(){
@@ -60,14 +60,14 @@ class Test extends Specification {
             def oneDependencyClassFullName = "exampleclasses.consonants.K"
 
         when:
-            Stack<Class> stack = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+            LinkedList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
 
         then:
-            Class k = stack.pop()
-            k.canonicalName == "exampleclasses.consonants.K"
-            Class j = stack.pop()
-            j.canonicalName == "exampleclasses.consonants.J"
-            stack.size() == 0
+            Class k = list.removeFirst()
+            k.canonicalName == "exampleclasses.consonants.J"
+            Class j = list.removeFirst()
+            j.canonicalName == "exampleclasses.consonants.K"
+            list.size() == 0
 
     }
 
