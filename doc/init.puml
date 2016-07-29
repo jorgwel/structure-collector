@@ -13,6 +13,8 @@
 	state J
 	state K
 	state L
+	state M
+	state N
 
 	A -right-> B
 	A -down-> G
@@ -27,7 +29,10 @@
 	D -down-> H
 	D -down-> K
 
+	N -up-> J
+
 	K -left-> J
+	K -down-> M
 
 	E --> F
 

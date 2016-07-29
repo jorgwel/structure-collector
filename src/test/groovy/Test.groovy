@@ -39,11 +39,11 @@ class Test extends Specification {
             def noDependenciesClassFullName = "exampleclasses.consonants.J"
 
         when:
-            LinkedList list = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
+            ArrayList list = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
 
         and:
             def sizeBeforeRemoval = list.size()
-            Object classContainedInList = list.removeFirst()
+            Object classContainedInList = list.remove(0)
 
         and:
             Class<?> loadedClass = loadClass(noDependenciesClassFullName)
@@ -57,17 +57,35 @@ class Test extends Specification {
     def "If the full class name of a class with only 1 dependency is sent, the structure contains 2 classes, the sent one and the dependency"(){
 
         given:
-            def oneDependencyClassFullName = "exampleclasses.consonants.K"
+            def oneDependencyClassFullName = "exampleclasses.consonants.N"
 
         when:
-            LinkedList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+            ArrayList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
 
         then:
-            Class k = list.removeFirst()
+            Class k = list.remove(0)
             k.canonicalName == "exampleclasses.consonants.J"
-            Class j = list.removeFirst()
-            j.canonicalName == "exampleclasses.consonants.K"
+            Class j = list.remove(0)
+            j.canonicalName == "exampleclasses.consonants.N"
             list.size() == 0
+
+    }
+
+    def "If the full class name of a class with 2 dependencies is sent, the structure contains 3 classes"(){
+
+        given:
+        def oneDependencyClassFullName = "exampleclasses.consonants.K"
+
+        when:
+        ArrayList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+
+        then:
+        list.size() == 3
+        Class k = list.remove(0)
+        k.canonicalName == "exampleclasses.consonants.M"
+        Class j = list.remove(0)
+        j.canonicalName == "exampleclasses.consonants.J"
+        list.size() == 1
 
     }
 
