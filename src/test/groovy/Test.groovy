@@ -1,15 +1,21 @@
+
 import groovy.io.FileType
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.tools.FileSystemCompiler
 import spock.lang.Specification
+import static helpers.ClassFullNames.*
 
 class Test extends Specification {
 
     private final static String BUILD_FOLDER = "src/test/resources/build"
+    private final static List VALID_PACKAGES = [
+        "package exampleclasses.vowels",
+        "package exampleclasses.consonants"
+    ]
     StructureCollector newInstance
     def setup(){
         println "Setting up"
-        newInstance = new StructureCollector()
+        newInstance = new StructureCollector(BUILD_FOLDER, VALID_PACKAGES)
         compileTestFiles()
     }
 
@@ -18,17 +24,9 @@ class Test extends Specification {
         deleteFiles()
     }
 
-//    def "Exists a class StructureCollector"(){
-//        when:
-//            def newInstance = new StructureCollector()
-//        then:
-//            newInstance != null
-//    }
-
-
-    def "StructureCollector has a method collect which receives a classPath and a class name "(){
+    def "StructureCollector has a method collect which receives a class name "(){
         when:
-            def method = StructureCollector.getMethod("collect", String, String)
+            def method = StructureCollector.getMethod("collect", String)
         then:
             method != null
     }
@@ -36,10 +34,10 @@ class Test extends Specification {
     def "If the full class name of a class without dependencies is sent, the structure contains only that class"(){
 
         given:
-            def noDependenciesClassFullName = "exampleclasses.consonants.J"
+            def noDependenciesClassFullName = Jclass.fullName
 
         when:
-            ArrayList list = newInstance.collect(BUILD_FOLDER, noDependenciesClassFullName)
+            ArrayList list = newInstance.collect(noDependenciesClassFullName)
 
         and:
             def sizeBeforeRemoval = list.size()
@@ -57,16 +55,15 @@ class Test extends Specification {
     def "If the full class name of a class with only 1 dependency is sent, the structure contains 2 classes, the sent one and the dependency"(){
 
         given:
-            def oneDependencyClassFullName = "exampleclasses.consonants.N"
+            def oneDependencyClassFullName = Nclass.fullName
 
         when:
-            ArrayList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+            ArrayList<Class> list = newInstance.collect(oneDependencyClassFullName)
 
         then:
-            Class k = list.remove(0)
-            k.canonicalName == "exampleclasses.consonants.J"
-            Class j = list.remove(0)
-            j.canonicalName == "exampleclasses.consonants.N"
+            list.size() == 2
+            list.remove(0).canonicalName == Jclass.fullName
+            list.remove(0).canonicalName == Nclass.fullName
             list.size() == 0
 
     }
@@ -74,19 +71,38 @@ class Test extends Specification {
     def "If the full class name of a class with 2 dependencies is sent, the structure contains 3 classes"(){
 
         given:
-        def oneDependencyClassFullName = "exampleclasses.consonants.K"
+            def twoDependenciesClassFullName = Kclass.fullName
 
         when:
-        ArrayList<Class> list = newInstance.collect(BUILD_FOLDER, oneDependencyClassFullName)
+            ArrayList<Class> list = newInstance.collect(twoDependenciesClassFullName)
 
         then:
-        list.size() == 3
-        Class k = list.remove(0)
-        k.canonicalName == "exampleclasses.consonants.M"
-        Class j = list.remove(0)
-        j.canonicalName == "exampleclasses.consonants.J"
-        list.size() == 1
+            list.size() == 3
+            Class m = list.remove(0)
+            m.canonicalName == Mclass.fullName
+            Class j = list.remove(0)
+            j.canonicalName == Jclass.fullName
+            Class k = list.remove(0)
+            k.canonicalName == Kclass.fullName
+            list.size() == 0
 
+    }
+
+    def "If the full class name of a class with 4 dependencies is sent, the structure contains 5 classes"(){
+
+        given:
+            def threeDependenciesClassFullName = Qclass.fullName
+
+        when:
+            ArrayList<Class> list = newInstance.collect(threeDependenciesClassFullName)
+
+        then:
+            list.size() == 5
+            list.remove(0).canonicalName == Jclass.fullName
+            list.remove(0).canonicalName == Nclass.fullName
+            list.remove(0).canonicalName == Pclass.fullName
+            list.remove(0).canonicalName == Oclass.fullName
+            list.remove(0).canonicalName == Qclass.fullName
     }
 
     private Class<?> loadClass(String noDependenciesClassFullName) {

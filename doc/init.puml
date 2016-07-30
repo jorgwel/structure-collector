@@ -15,6 +15,9 @@
 	state L
 	state M
 	state N
+	state O
+	state P
+	state Q
 
 	A -right-> B
 	A -down-> G
@@ -30,9 +33,13 @@
 	D -down-> K
 
 	N -up-> J
+	P --> N
+	Q --> P
+	Q --> O
 
 	K -left-> J
 	K -down-> M
+
 
 	E --> F
 

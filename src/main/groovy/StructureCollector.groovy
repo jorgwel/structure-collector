@@ -5,18 +5,26 @@ import java.lang.reflect.Field
  */
 class StructureCollector {
 
-    def ArrayList<Class> collect(String classPath, String fullClassName){
-        Class<?> loadedClass = loadClass(classPath, fullClassName)
+    final String classPath
+    final List validPackages
+
+    StructureCollector(String classPath, List validPackages) {
+        this.classPath = classPath
+        this.validPackages = validPackages
+    }
+
+    def ArrayList<Class> collect(String fullClassName){
+        Class<?> loadedClass = loadClass(fullClassName)
         def classesStack = new ArrayList<Class>()
 
-        addDepedencies(loadedClass, classesStack, classPath)
+        addDepedencies(loadedClass, classesStack)
         classesStack.add(loadedClass)
 
         return classesStack
     }
 
-    private Class<?> loadClass(String classPath, String fullClassName) {
-        URLClassLoader urlCl = getClassLoader(classPath)
+    private Class<?> loadClass(String fullClassName) {
+        URLClassLoader urlCl = getClassLoader()
         Class clazz = urlCl.loadClass(fullClassName);
         clazz
     }
@@ -24,21 +32,22 @@ class StructureCollector {
     private ArrayList bringDependencies(Class clazz) {
         def dependenciesFields = []
         clazz.declaredFields.each { Field field ->
-            if (isFieldInManagedPackage(field, clazz))
+            if (isFieldInManagedPackage(field))
                 dependenciesFields.add(field)
         }
         sortFields(dependenciesFields)
         return dependenciesFields
     }
 
-    private boolean isFieldInManagedPackage(Field field, Class clazz) {
-        field.type.package == clazz.package
+    private boolean isFieldInManagedPackage(Field field) {
+        println field.type.package
+        this.validPackages.contains(field.type.package?.toString())
     }
 
-    private void addDepedencies(Class loadedClass, List<Class> classes, String classPath) {
+    private void addDepedencies(Class loadedClass, List<Class> classes) {
         ArrayList<Field> dependencyFields = bringDependencies(loadedClass)
         dependencyFields.each { Field field ->
-            ArrayList<Class> dependencies = collect(classPath, field.type.canonicalName)
+            ArrayList<Class> dependencies = collect(field.type.canonicalName)
             while (!dependencies.empty)
                 classes.add(dependencies.remove(0))
         }
@@ -54,7 +63,7 @@ class StructureCollector {
 
     }
 
-    private URLClassLoader getClassLoader(String classPath) {
+    private URLClassLoader getClassLoader() {
         File f = new File(classPath);
         URL[] cp = [f.toURI().toURL()];
         URLClassLoader urlcl = new URLClassLoader(cp);
