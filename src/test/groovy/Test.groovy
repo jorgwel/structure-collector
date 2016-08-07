@@ -1,4 +1,5 @@
-
+import clases.Structure
+import clases.StructureCollector
 import groovy.io.FileType
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.tools.FileSystemCompiler
@@ -6,12 +7,13 @@ import spock.lang.Specification
 import static helpers.ClassFullNames.*
 
 class Test extends Specification {
-
-    private final static String BUILD_FOLDER = "src/test/resources/build"
-    private final static List VALID_PACKAGES = [
+    private static final String EXAMPLE_SOURCE_FILES_FOLDER = "src/test/resources/exampleclasses"
+    private static final String BUILD_FOLDER = "src/test/resources/build"
+    private static final List VALID_PACKAGES = [
         "package exampleclasses.vowels",
         "package exampleclasses.consonants"
     ]
+
     StructureCollector newInstance
     def setup(){
         println "Setting up"
@@ -24,7 +26,7 @@ class Test extends Specification {
         deleteFiles()
     }
 
-    def "StructureCollector has a method collect which receives a class name "(){
+    def "clases.StructureCollector has a method collect which receives a class name "(){
         when:
             def method = StructureCollector.getMethod("collect", String)
         then:
@@ -41,7 +43,7 @@ class Test extends Specification {
 
         and:
             def sizeBeforeRemoval = list.size()
-            Object classContainedInList = list.remove(0)
+            Object classContainedInList = list.remove(0).clazz
 
         and:
             Class<?> loadedClass = loadClass(noDependenciesClassFullName)
@@ -58,12 +60,12 @@ class Test extends Specification {
             def oneDependencyClassFullName = Nclass.fullName
 
         when:
-            ArrayList<Class> list = newInstance.collect(oneDependencyClassFullName)
+            ArrayList<Structure> list = newInstance.collect(oneDependencyClassFullName)
 
         then:
             list.size() == 2
-            list.remove(0).canonicalName == Jclass.fullName
-            list.remove(0).canonicalName == Nclass.fullName
+            list.remove(0).clazz.canonicalName == Jclass.fullName
+            list.remove(0).clazz.canonicalName == Nclass.fullName
             list.size() == 0
 
     }
@@ -74,15 +76,15 @@ class Test extends Specification {
             def twoDependenciesClassFullName = Kclass.fullName
 
         when:
-            ArrayList<Class> list = newInstance.collect(twoDependenciesClassFullName)
+            ArrayList<Structure> list = newInstance.collect(twoDependenciesClassFullName)
 
         then:
             list.size() == 3
-            Class m = list.remove(0)
+            Class m = list.remove(0).clazz
             m.canonicalName == Mclass.fullName
-            Class j = list.remove(0)
+            Class j = list.remove(0).clazz
             j.canonicalName == Jclass.fullName
-            Class k = list.remove(0)
+            Class k = list.remove(0).clazz
             k.canonicalName == Kclass.fullName
             list.size() == 0
 
@@ -94,24 +96,24 @@ class Test extends Specification {
             def threeDependenciesClassFullName = Qclass.fullName
 
         when:
-            ArrayList<Class> list = newInstance.collect(threeDependenciesClassFullName)
+            ArrayList<Structure> list = newInstance.collect(threeDependenciesClassFullName)
 
         then:
             list.size() == 5
-            list.remove(0).canonicalName == Jclass.fullName
-            list.remove(0).canonicalName == Nclass.fullName
-            list.remove(0).canonicalName == Pclass.fullName
-            list.remove(0).canonicalName == Oclass.fullName
-            list.remove(0).canonicalName == Qclass.fullName
+            list.remove(0).clazz.canonicalName == Oclass.fullName
+            list.remove(0).clazz.canonicalName == Jclass.fullName
+            list.remove(0).clazz.canonicalName == Nclass.fullName
+            list.remove(0).clazz.canonicalName == Pclass.fullName
+            list.remove(0).clazz.canonicalName == Qclass.fullName
     }
 
-    private Class<?> loadClass(String noDependenciesClassFullName) {
+    private static Class<?> loadClass(String noDependenciesClassFullName) {
         URLClassLoader urlCl = getClassLoader(BUILD_FOLDER)
         Class loadedClass = urlCl.loadClass(noDependenciesClassFullName)
         return loadedClass
     }
 
-    private URLClassLoader getClassLoader(String build_folder) {
+    private static URLClassLoader getClassLoader(String build_folder) {
         File f = new File(build_folder)
         URL[] cp = [f.toURI().toURL()]
         URLClassLoader urlcl = new URLClassLoader(cp)
@@ -119,7 +121,7 @@ class Test extends Specification {
     }
 
 
-    private boolean deleteFiles() {
+    private static boolean deleteFiles() {
         new File(BUILD_FOLDER).deleteDir()
     }
 
@@ -132,8 +134,8 @@ class Test extends Specification {
         compiler.compile(fSorted)
     }
 
-    private File[] bringArrayOfFilesInFolder() {
-        def dir = new File("src/test/resources/exampleclasses")
+    private static File[] bringArrayOfFilesInFolder() {
+        def dir = new File(EXAMPLE_SOURCE_FILES_FOLDER)
         def files = []
         dir.eachFileRecurse(FileType.FILES) { file ->
             files << file
