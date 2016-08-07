@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e45d73ce-dcea-4e8a-8127-b4a5c4fb8bea" name="Default" comment="Now the collect method returns an array of instructions instead of an array of classes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/groovy/clases/Structure.groovy" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/groovy/StructureCollector.groovy" afterPath="$PROJECT_DIR$/src/main/groovy/clases/StructureCollector.groovy" />
+    <list default="true" id="e45d73ce-dcea-4e8a-8127-b4a5c4fb8bea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/diagrams/algorithm.svg" afterPath="$PROJECT_DIR$/doc/diagrams/algorithm.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/diagrams/bring_structure_activity.svg" afterPath="$PROJECT_DIR$/doc/diagrams/bring_structure_activity.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/diagrams/collect_structure_activity.svg" afterPath="$PROJECT_DIR$/doc/diagrams/collect_structure_activity.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/diagrams/init.svg" afterPath="$PROJECT_DIR$/doc/diagrams/init.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/Test.groovy" afterPath="$PROJECT_DIR$/src/test/groovy/Test.groovy" />
     </list>
     <ignored path="structure-collector.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,11 +43,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Test.groovy" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/groovy/Test.groovy">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
-              <caret line="136" column="18" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+            <state relative-caret-position="93">
+              <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -425,6 +418,7 @@
         <option value="$PROJECT_DIR$/src/main/groovy/clases/Structure.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/clases/StructureCollector.groovy" />
         <option value="$PROJECT_DIR$/src/test/groovy/Test.groovy" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -1054,6 +1048,14 @@
       <workItem from="1469706959118" duration="17436000" />
       <workItem from="1470186446529" duration="3134000" />
     </task>
+    <task id="LOCAL-00001" summary="Now the collect method returns an array of instructions instead of an array of classes">
+      <created>1470577484495</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1470577484495</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1102,7 +1104,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7369792" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1112,7 +1114,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32962963" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32962963" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37407407" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1229,13 +1231,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.3.11/fdf089bfd5d0b7e86100ac599741f65732fc21d5/groovy-all-2.3.11-sources.jar!/groovy/lang/GroovyCodeSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.3.11/fdf089bfd5d0b7e86100ac599741f65732fc21d5/groovy-all-2.3.11-sources.jar!/groovy/lang/Script.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -4501,6 +4496,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
           <caret line="136" column="18" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+          <folding>
+            <marker date="1470577457502" expanded="false" signature="7:262" ph="..." />
+            <marker date="1470577457502" expanded="true" signature="662:800" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="819:878" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="967:1102" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="1218:1756" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="1901:2294" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="2403:2938" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="3047:3616" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="3692:3859" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="3931:4085" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="4129:4139" ph="{" />
+            <marker date="1470577457502" expanded="true" signature="4173:4179" ph="}" />
+            <marker date="1470577457502" expanded="true" signature="4217:4517" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="4573:4833" ph="{...}" />
+            <marker date="1470577457502" expanded="true" signature="4698:4700" ph="{" />
+            <marker date="1470577457502" expanded="true" signature="4733:4743" ph="}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
           <folding />
         </state>
       </provider>
