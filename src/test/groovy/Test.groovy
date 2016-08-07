@@ -15,6 +15,7 @@ class Test extends Specification {
     ]
 
     StructureCollector newInstance
+
     def setup(){
         newInstance = new StructureCollector(BUILD_FOLDER, VALID_PACKAGES)
         compileTestFiles()
