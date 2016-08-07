@@ -16,13 +16,11 @@ class Test extends Specification {
 
     StructureCollector newInstance
     def setup(){
-        println "Setting up"
         newInstance = new StructureCollector(BUILD_FOLDER, VALID_PACKAGES)
         compileTestFiles()
     }
 
     def cleanup(){
-        println "Cleaning up"
         deleteFiles()
     }
 
