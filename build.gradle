@@ -1,10 +1,19 @@
 group 'mx.com.jorgwel'
 version '1.0-SNAPSHOT'
 
+
 apply plugin: 'groovy'
 
 repositories {
     mavenCentral()
+}
+
+uploadArchives {
+    repositories {
+        maven {
+            url repositories.mavenLocal().url
+        }
+    }
 }
 
 dependencies {
