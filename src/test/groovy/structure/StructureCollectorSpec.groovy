@@ -1,12 +1,12 @@
-import clases.Structure
-import clases.StructureCollector
+package structure
+
 import groovy.io.FileType
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.tools.FileSystemCompiler
 import spock.lang.Specification
-import static helpers.ClassFullNames.*
+import static testhelpers.ClassFullNames.*
 
-class Test extends Specification {
+class StructureCollectorSpec extends Specification {
     private static final String EXAMPLE_SOURCE_FILES_FOLDER = "src/test/resources/exampleclasses"
     private static final String BUILD_FOLDER = "src/test/resources/build"
     private static final List VALID_PACKAGES = [
@@ -104,6 +104,24 @@ class Test extends Specification {
             list.remove(0).clazz.canonicalName == Nclass.fullName
             list.remove(0).clazz.canonicalName == Pclass.fullName
             list.remove(0).clazz.canonicalName == Qclass.fullName
+    }
+
+    def "Method bring collection returns the structure as an iterator (in reverse order)"(){
+
+        given:
+            def threeDependenciesClassFullName = Qclass.fullName
+
+        when:
+            Iterator<Structure> structureIterator = newInstance.bringCollection(threeDependenciesClassFullName)
+
+        then:
+
+            structureIterator.next().clazz.canonicalName == Qclass.fullName
+            structureIterator.next().clazz.canonicalName == Pclass.fullName
+            structureIterator.next().clazz.canonicalName == Nclass.fullName
+            structureIterator.next().clazz.canonicalName == Jclass.fullName
+            structureIterator.next().clazz.canonicalName == Oclass.fullName
+            structureIterator.hasNext() == false
     }
 
     private static Class<?> loadClass(String noDependenciesClassFullName) {

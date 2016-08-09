@@ -1,4 +1,4 @@
-package clases
+package structure
 
 import java.lang.reflect.Field
 
@@ -10,6 +10,12 @@ class StructureCollector {
     StructureCollector(String classPath, List validPackages) {
         this.classPath = classPath
         this.validPackages = validPackages
+    }
+
+    def Iterator bringCollection(String fullClassName){
+        def it = collect(fullClassName).reverse().iterator()
+//        println "it: " + it.size()
+        return it
     }
 
     def ArrayList<Structure> collect(String fullClassName){

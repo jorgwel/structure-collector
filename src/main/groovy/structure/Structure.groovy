@@ -1,4 +1,4 @@
-package clases;
+package structure;
 
 public class Structure {
 
