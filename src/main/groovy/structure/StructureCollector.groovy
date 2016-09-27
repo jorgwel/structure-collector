@@ -14,7 +14,6 @@ class StructureCollector {
 
     def Iterator bringCollection(String fullClassName){
         def it = collect(fullClassName).reverse().iterator()
-//        println "it: " + it.size()
         return it
     }
 
@@ -64,11 +63,6 @@ class StructureCollector {
     private boolean isFieldInManagedPackage(Class clazz) {
         this.validPackages.contains(clazz.package?.toString())
     }
-
-//    private void addStructureTail(List<Structure> dependencies, List<Structure> structures) {
-//            while (!dependencies.empty)
-//                structures.add(dependencies.remove(0))
-//    }
 
     private static sortClasses(List<Class> dependencyFields) {
         Collections.sort(dependencyFields, new Comparator<Class>() {

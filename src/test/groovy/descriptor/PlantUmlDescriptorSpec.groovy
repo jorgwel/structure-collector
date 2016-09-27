@@ -2,6 +2,10 @@ package descriptor
 
 import spock.lang.Specification
 import structure.Structure
+import structure.StructureCollector
+
+import static testhelpers.ClassFullNames.*
+import static testhelpers.CommonMethods.*
 
 class PlantUmlDescriptorSpec extends Specification {
 
@@ -9,9 +13,11 @@ class PlantUmlDescriptorSpec extends Specification {
 
     def setup(){
         newInstance = new PlantUmlDescriptor()
+        compileTestFiles()
     }
 
     def cleanup(){
+        deleteFiles()
     }
 
 
@@ -27,8 +33,12 @@ class PlantUmlDescriptorSpec extends Specification {
 
 
     def "Has a method named \"describe\" which returns a string"(){
+        given:
+            def structureCollector = new StructureCollector(BUILD_FOLDER, VALID_PACKAGES)
+            Iterator<Structure> structureIterator = structureCollector.bringCollection(Qclass.fullName)
         when:
-            String description = newInstance.describe(new ArrayList<Structure>().iterator())
+            String description = newInstance.describe(structureIterator)
+            println "description: " + description
         then:
             description != null
     }
