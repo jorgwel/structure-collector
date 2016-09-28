@@ -40,7 +40,14 @@ class PlantUmlDescriptorSpec extends Specification {
             String description = newInstance.describe(structureIterator)
             println "description: " + description
         then:
-            description != null
+            description == """@startuml
+Q --> O
+Q --> P
+P --> N
+N --> J
+
+@enduml"""
+
     }
 
 
