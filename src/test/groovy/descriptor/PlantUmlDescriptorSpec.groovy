@@ -41,10 +41,25 @@ class PlantUmlDescriptorSpec extends Specification {
             println "description: " + description
         then:
             description == """@startuml
+state Q
 Q --> O
 Q --> P
+
+
+state P
 P --> N
+
+
+state N
 N --> J
+
+
+state J
+
+
+state O
+
+
 
 @enduml"""
 

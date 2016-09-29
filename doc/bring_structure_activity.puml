@@ -1,7 +1,0 @@
-@startuml
-
-	group User has structure id and wants its stack representation
-	      StructureFinder -> StructureFinder : ClassStack stack = find(humanIdentificator);
-	end
-
-@enduml
