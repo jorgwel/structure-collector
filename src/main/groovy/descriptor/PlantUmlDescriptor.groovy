@@ -7,12 +7,11 @@ class PlantUmlDescriptor {
 
 
     def static FILE_TEMPLATE =  '''@startuml
-${setsOfTransitions}
+${states}
+${setOfTransitions}
 @enduml'''
 
     def static STATE_TEMPLATE =  '''state ${newState}
-${transitions}
-
 '''
 
     def static STATE_TRANSITION_TEMPLATE = '''${firstState} --> ${secondState}\n'''
@@ -22,28 +21,28 @@ ${transitions}
 
     }
 
-    private String buildPlantUmlString(Iterator<Structure> structureIterator) {
-        def statesString = bringStates(structureIterator)
-        return renderTemplate(FILE_TEMPLATE, [setsOfTransitions: statesString])
+    def buildPlantUmlString(Iterator<Structure> structures) {
+
+        def fileContents = bringContentsOfPlantUmlFile(structures)
+        return renderTemplate(FILE_TEMPLATE, [states: fileContents.stateDeclarations, setOfTransitions: fileContents.transitions])
 
     }
 
-    def bringStates(Iterator<Structure> structureIterator) {
-        def statesBuffer = new StringBuilder()
-        while (structureIterator.hasNext()) {
-            def nextStructure = structureIterator.next()
-            def newStateName = nextStructure.clazz.simpleName
-            def transitionsString = buildTransitions(nextStructure)
+    def bringContentsOfPlantUmlFile(Iterator<Structure> structures) {
+        def statesDeclarationsBuffer = new StringBuilder()
+        def transitionsBuffer = new StringBuilder()
 
-            def templateParams = [newState: newStateName, transitions: transitionsString]
-            def stateAndTransitions = renderTemplate(STATE_TEMPLATE, templateParams)
-
-            statesBuffer.append(stateAndTransitions)
+        while (structures.hasNext()) {
+            def struct = structures.next()
+            def state = renderTemplate(STATE_TEMPLATE, [newState: struct.clazz.simpleName])
+            statesDeclarationsBuffer.append(state)
+            def transition = bringTransitions(struct)
+            transitionsBuffer.append(transition)
         }
-        statesBuffer.toString()
+        [stateDeclarations: statesDeclarationsBuffer.toString(), transitions: transitionsBuffer.toString()]
     }
 
-    def buildTransitions(Structure structure) {
+    def bringTransitions(Structure structure) {
         def stateAndReferencesString = new StringBuilder()
         Iterator<Class> references = structure.references.iterator()
         while (references.hasNext()) {
@@ -51,12 +50,12 @@ ${transitions}
             String transitionString = buildTransitionString(structure.clazz, nextReference)
             stateAndReferencesString.append(transitionString)
         }
+        stateAndReferencesString.append("\n")
         stateAndReferencesString.toString()
     }
 
     private String buildTransitionString(Class origin, Class reference) {
-        def templateParams = [firstState: origin.simpleName, secondState: reference.simpleName]
-        String transitionString = renderTemplate(STATE_TRANSITION_TEMPLATE, templateParams)
+        String transitionString = renderTemplate(STATE_TRANSITION_TEMPLATE, [firstState: origin.simpleName, secondState: reference.simpleName])
         transitionString
     }
 

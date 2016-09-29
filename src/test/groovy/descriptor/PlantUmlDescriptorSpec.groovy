@@ -42,22 +42,18 @@ class PlantUmlDescriptorSpec extends Specification {
         then:
             description == """@startuml
 state Q
+state P
+state N
+state J
+state O
+
 Q --> O
 Q --> P
 
-
-state P
 P --> N
 
-
-state N
 N --> J
 
-
-state J
-
-
-state O
 
 
 
